@@ -1,18 +1,12 @@
 from agents.base import EliteAgent
+from agents.nutrition_agent import NutritionAgent
 
 class Orchestrator:
     def __init__(self):
-        # Initialisation des agents (seront configurés plus tard)
-        self.nutrition_agent = None 
-        self.fitness_agent = None
+        self.nutrition_agent = NutritionAgent()
 
     def route_query(self, user_input: str):
-        """
-        Logique de routage : décide quel agent utiliser selon la question.
-        """
         if "manger" in user_input.lower() or "calories" in user_input.lower():
-            return "Redirection vers l'agent Nutrition..."
-        elif "sport" in user_input.lower() or "exercice" in user_input.lower():
-            return "Redirection vers l'agent Fitness..."
+            return self.nutrition_agent.run(user_input)
         else:
             return "Demande générale traitée par l'orchestrateur."
